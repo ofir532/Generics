@@ -11,7 +11,9 @@ namespace Generics
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Knight k1 = new Knight();
+            k1.Id = 1;
+            HeroesTable heroes = new HeroesTable(5);
         }
     }
 }
