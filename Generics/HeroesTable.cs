@@ -12,37 +12,68 @@ namespace Generics
         private Knight[] knights;
         public HeroesTable(int size = 2)
         {
-            if (size < 0)
+            try
             {
-                throw new IndexNotValid("The size should be higer than 0. Size updated to 1.");
+                if (size < 0)
+                    throw new IndexNotValid("Size Can't be lower than 0.");
+            }
+            catch(IndexNotValid)
+            {
+                Console.WriteLine("Size updated to 0");
+                size = 0;
             }
             knights = new Knight[size];
         }
         public void AddHero(Knight kngiht, int index)
         {
             if (index < 0)
-                throw new IndexNotValid("The size should be higer than 0. Size updated to 1.");
-            else if (knights.Length < index)
-                throw new IndexNotExist("");
-            else if (knights[index] != null)
-                throw new IndexIsNotNull("");
+                throw new IndexNotValid("Index Can't be lower than 0.");
+            if (knights.Length < index)
+                throw new IndexNotExist("Index out of range");
+            if (knights[index] != null)
+                throw new IndexIsNotNull("The spot is already taken");
 
             knights[index] = kngiht;
         }
         public void RemoveHero(int index)
         {
             if (index < 0)
+                throw new IndexNotValid("Index Can't be lower than 0.");
+            if (knights.Length < index)
+                throw new IndexNotExist("Index out of range");
+            try
             {
-                throw new IndexNotValid("The size should be higer than 0. Size updated to 1.");
+                if (knights[index] == null)
+                    throw new IndexIsNull("The spot is empty");
             }
-            else if (knights.Length < index)
+            catch (IndexIsNull) { };
+
+            knights[index] = null;
+
+        }
+        public int GetNumOfKnights()
+        {
+            int count = 0;
+            for (int i = 0; i < knights.Length; i++)
             {
-                throw new IndexNotExist("");
+                if (knights[i] != null)
+                    count++;
             }
-            else if (knights[index] == null)
+            return count;
+        }
+        public Knight[] GetKnights()
+        {
+            int size = GetNumOfKnights();
+            Knight[] newKnightsArray = new Knight[size];
+            for (int i = 0,x = 0; i < knights.Length; i++)
             {
-                throw new IndexIsNull("");
+                if (knights[i] != null)
+                {
+                    newKnightsArray[x] = knights[i];
+                    x++;
+                }
             }
+            return newKnightsArray;
         }
     }
 }

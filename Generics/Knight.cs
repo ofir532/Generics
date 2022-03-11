@@ -11,6 +11,7 @@ namespace Generics
         public int Id { get; set; }
         public string Name { get; set; }
         public int Age { get; set; }
+        public string Weapon { get; set; }
         public string HorseType { get; set; }
 
     }
